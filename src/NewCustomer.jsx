@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { createCustomer } from "./redux/slices/customer"
+import { useNavigate } from "react-router-dom"
 
 const NewCustomer = ()=>{
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [form,setForm] = useState({
         customer_name:'',
@@ -17,6 +19,7 @@ const NewCustomer = ()=>{
 
         e.preventDefault()
       dispatch(createCustomer(form))
+      navigate("/")
         
     
     }

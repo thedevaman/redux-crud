@@ -1,39 +1,15 @@
 import { Link } from "react-router-dom"
+import { useSelector, useDispatch} from "react-redux"
+import { deleteCustomer } from "./redux/slices/customer"
+
 
 const Home = ()=>{
    
-  const customers =[
-    {
-      coustomer:"Aman",
-      product:"shirt",
-      price:300,
-      discount:50
-    },
-    {
-      coustomer:"Akash",
-      product:"pant",
-      price:500,
-      discount:40
-    },
-    {
-      coustomer:"Abhay",
-      product:"t-shirt",
-      price:200,
-      discount:20
-    },
-    {
-      coustomer:"Ajit",
-      product:"jeans",
-      price:1000,
-      discount:200
-    },
-    {
-      coustomer:"Arun",
-      product:"trouser",
-      price:1000,
-      discount:50
-    },
-  ]
+  const {customerSlice} = useSelector(res=>res)
+  const dispatch = useDispatch()
+  const onDeleteCustomer = (index)=>{
+    dispatch(deleteCustomer(index))
+  }
 
 
   return(
@@ -59,10 +35,10 @@ const Home = ()=>{
           </thead>
           <tbody>
           {
-            customers.map((item,index)=>(
+            customerSlice.map((item,index)=>(
               <tr className={index % 2 === 0 ? 'bg-white':'bg-rose-100'} key={index}>
                 <td className='py-4 pl-3' >{index+1}</td>
-                <td>{item.coustomer}</td>
+                <td>{item.customer_name}</td>
                 <td>{item.product}</td>
                 <td>{item.price}</td>
                 <td>{item.discount}</td>
@@ -71,7 +47,7 @@ const Home = ()=>{
                   <button className='bg-indigo-600 w-8 h-8 rounded'>
                      <i className='ri-file-edit-line text-white'></i>
                   </button>
-                  <button className='bg-rose-600 w-8 h-8 rounded'>
+                  <button className='bg-rose-600 w-8 h-8 rounded' onClick={()=>onDeleteCustomer(index)}>
                      <i className='ri-delete-bin-6-line text-white'></i>
                   </button>
                   </div>
